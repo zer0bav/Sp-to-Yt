@@ -1,0 +1,34 @@
+# Apple Music web player (music.apple.com) selectors. Reading and search were checked against
+# the live site; library access and writing need a subscription and are experimental.
+
+[session]
+logged_out = '[data-testid="sign-in-button"]'
+logged_in = '[data-testid="user-avatar"], [data-testid="account-button"], button[aria-label*="Account" i], amp-user-menu, [data-testid="sign-out"]'
+
+[tracks]
+row = '[data-testid="track-list-item"]'
+title = '[data-testid="track-title"]'
+song_link = 'a[href*="/song/"], a[href*="?i="]'
+by_line = '[data-testid="track-title-by-line"] a'
+album = '[data-testid="track-column-tertiary"] a'
+duration = '[data-testid="track-duration"]'
+
+[search]
+row = '[data-testid="track-lockup"]'
+title = '[data-testid="track-lockup-title"] a'
+artists = '[data-testid="track-lockup-subtitle"] a'
+
+[library]
+url = "https://music.apple.com/library/all-playlists/"
+items = 'a[href*="/library/playlist/"]'
+
+[create]
+open_texts = ["New Playlist"]
+buttons = 'button, [role="button"], a, li'
+title_input = '[role="dialog"] input, dialog input, input[name="title"], [data-testid="playlist-title-input"] input'
+confirm_texts = ["Create", "Done"]
+
+[add]
+more_button = '[data-testid="more-button"], button[aria-label="more" i], button[aria-label="MORE"]'
+menu_items = 'amp-contextual-menu-item, [role="menuitem"], .contextual-menu-item, button'
+add_text = "Add to Playlist"

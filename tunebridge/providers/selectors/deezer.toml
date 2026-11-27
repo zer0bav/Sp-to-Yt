@@ -1,0 +1,28 @@
+# Deezer (www.deezer.com) selectors. Reading and search were checked against the live site;
+# writing (create playlist, add to playlist) is experimental.
+
+[session]
+logged_out = '[data-testid="sign-in-button"], a[href*="/login"], button[data-testid="login-button"]'
+logged_in = 'a[href*="/profile/"], [data-testid="user-avatar"], button[aria-label*="account" i]'
+profile_link = 'a[href*="/profile/"]'
+
+[tracks]
+row = '[role="row"][aria-rowindex]'
+title = '[data-testid="title"]'
+artist = 'a[data-testid="artist"]'
+album = 'a[data-testid="album"]'
+duration = '[data-testid="duration"]'
+
+[library]
+items = 'a[href*="/playlist/"]'
+
+[create]
+open_texts = ["Create playlist", "New playlist"]
+buttons = 'button, [role="button"], a'
+title_input = '[role="dialog"] input[type="text"], [role="dialog"] input:not([type]), input[name="title"]'
+confirm_texts = ["Create", "Save"]
+
+[add]
+menu_button = 'button[aria-label="View menu"], button[aria-haspopup="dialog"]'
+menu_items = '[role="menu"] [role="menuitem"], [role="dialog"] button, [data-testid="context-menu-content"] button, [data-testid="context-menu-content"] [role="menuitem"]'
+add_text = "Add to playlist"
