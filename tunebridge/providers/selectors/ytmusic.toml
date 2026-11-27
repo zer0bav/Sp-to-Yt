@@ -1,0 +1,35 @@
+# YouTube Music (music.youtube.com) selectors.
+
+[session]
+nav = "ytmusic-nav-bar"
+logged_out = 'ytmusic-nav-bar a[href*="ServiceLogin"], ytmusic-nav-bar .sign-in-link, a.sign-in-link'
+logged_in = 'ytmusic-settings-button img#img[src], ytmusic-settings-button yt-img-shadow img[src]'
+
+[library]
+items = "ytmusic-two-row-item-renderer, ytmusic-responsive-list-item-renderer"
+
+[tracks]
+# the playlist's own songs; the "Suggestions" shelf below it is a plain ytmusic-shelf-renderer
+rows = "ytmusic-playlist-shelf-renderer ytmusic-responsive-list-item-renderer"
+rows_fallback = "ytmusic-shelf-renderer:first-of-type ytmusic-responsive-list-item-renderer"
+header = "ytmusic-responsive-header-renderer, ytmusic-detail-header-renderer, ytmusic-editable-playlist-detail-header-renderer"
+
+[search]
+chips = "ytmusic-chip-cloud-chip-renderer"
+# the "Songs" filter chip is recognised by its search params, so any UI language works
+songs_params_prefix = "EgWKAQII"
+songs_chip_texts = ["Songs", "Şarkılar", "Canciones", "Titres", "Brani", "Músicas", "Песни"]
+rows = "ytmusic-shelf-renderer ytmusic-responsive-list-item-renderer"
+
+[create]
+new_playlist_items = "ytmusic-two-row-item-renderer, ytmusic-responsive-list-item-renderer, ytmusic-guide-entry-renderer, tp-yt-paper-item"
+form = "ytmusic-playlist-form"
+title_input = "ytmusic-playlist-form input"
+create_buttons = "ytmusic-playlist-form #general-pane button"
+
+[add]
+menu_button = 'ytmusic-player-bar #button-shape-more button, ytmusic-player-bar ytmusic-menu-renderer yt-button-shape button, ytmusic-player-bar ytmusic-menu-renderer tp-yt-paper-icon-button'
+menu_items = "ytmusic-menu-popup-renderer ytmusic-menu-navigation-item-renderer, ytmusic-menu-popup-renderer ytmusic-menu-service-item-renderer"
+dialog = "ytmusic-add-to-playlist-renderer"
+dialog_options = "ytmusic-add-to-playlist-renderer ytmusic-playlist-add-to-option-renderer"
+duplicate_cancel = 'yt-confirm-dialog-renderer #cancel-button button, ytmusic-confirm-dialog-renderer #cancel-button button'

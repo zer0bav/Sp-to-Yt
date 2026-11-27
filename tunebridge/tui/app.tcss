@@ -1,0 +1,253 @@
+/* TuneBridge terminal UI. Colors come from the registered themes (see app.py). */
+
+Screen {
+    background: $background;
+    color: $foreground;
+}
+
+.stepbar {
+    height: 1;
+    padding: 0 1 0 0;
+    background: $panel;
+    color: $foreground;
+    margin-bottom: 1;
+}
+
+.pane {
+    background: $surface;
+    border: round $panel-lighten-2;
+    border-title-color: $text-muted;
+    padding: 0 1;
+}
+
+.pane:focus-within {
+    border: round $primary 60%;
+}
+
+.pane-title {
+    text-style: bold;
+    color: $primary;
+    margin: 1 0 0 0;
+}
+
+.field-label {
+    color: $text-muted;
+    margin-top: 1;
+}
+
+.hint {
+    color: $text-muted;
+    margin: 0 0 1 0;
+}
+
+.center {
+    width: 100%;
+    content-align: center middle;
+    text-align: center;
+}
+
+.status-line {
+    height: auto;
+    min-height: 1;
+    color: $text-muted;
+    margin: 1 0;
+}
+
+Button {
+    margin-top: 1;
+    width: 100%;
+    min-width: 16;
+}
+
+Input {
+    border: tall $panel-lighten-1;
+    background: $background;
+}
+
+Input:focus {
+    border: tall $primary;
+}
+
+OptionList, SelectionList {
+    background: $background;
+    border: tall $panel-lighten-1;
+    height: auto;
+    max-height: 12;
+}
+
+OptionList:focus, SelectionList:focus {
+    border: tall $primary;
+}
+
+DataTable {
+    background: $background;
+    height: 1fr;
+    overflow-x: hidden;
+}
+
+#platforms {
+    height: auto;
+    max-height: 12;
+}
+
+.how {
+    color: $foreground 85%;
+    margin: 0 0 1 0;
+}
+
+DataTable > .datatable--header {
+    background: $panel;
+    color: $text-muted;
+    text-style: bold;
+}
+
+/* ---- connect ---- */
+
+#connect {
+    height: 1fr;
+    padding: 0 1;
+}
+
+#platforms-pane {
+    width: 2fr;
+    margin-right: 1;
+}
+
+#route-pane {
+    width: 1fr;
+    min-width: 34;
+}
+
+#route-pane OptionList {
+    max-height: 9;
+}
+
+.route-summary {
+    margin-top: 1;
+    height: auto;
+}
+
+/* ---- playlists ---- */
+
+#playlists-layout {
+    height: 1fr;
+    padding: 0 1;
+}
+
+#playlists-pane {
+    width: 2fr;
+    margin-right: 1;
+}
+
+#options-pane {
+    width: 1fr;
+    min-width: 34;
+}
+
+#pl-list {
+    height: 1fr;
+    max-height: 100%;
+}
+
+#pl-loading {
+    height: 1fr;
+}
+
+#pl-loading LoadingIndicator {
+    height: 3;
+    color: $primary;
+}
+
+.switch-row {
+    height: auto;
+    margin-top: 1;
+}
+
+.switch-row Label {
+    padding: 1 0 0 1;
+}
+
+/* ---- run ---- */
+
+#run-layout {
+    height: 1fr;
+    padding: 0 1;
+}
+
+#run-main {
+    width: 3fr;
+    margin-right: 1;
+}
+
+#run-side {
+    width: 1fr;
+    min-width: 36;
+}
+
+#run-head {
+    height: 2;
+}
+
+#run-head .pane-title {
+    width: auto;
+}
+
+#view-tabs {
+    width: 1fr;
+    content-align: right bottom;
+    text-align: right;
+    margin-top: 1;
+}
+
+.phase {
+    height: auto;
+    margin: 1 0;
+}
+
+#bars {
+    height: auto;
+    max-height: 14;
+}
+
+.bar-row {
+    height: auto;
+    margin-bottom: 1;
+}
+
+.bar-label {
+    color: $text-muted;
+}
+
+ProgressBar Bar > .bar--bar {
+    color: $primary;
+}
+
+ProgressBar Bar > .bar--complete {
+    color: $success;
+}
+
+#log {
+    height: 1fr;
+    overflow-x: hidden;
+    background: $background;
+    border: tall $panel-lighten-1;
+}
+
+/* ---- candidate modal ---- */
+
+CandidateScreen {
+    align: center middle;
+    background: $background 70%;
+}
+
+#cand-box {
+    width: 90;
+    max-width: 95%;
+    height: auto;
+    padding: 0 2 1 2;
+}
+
+#cand-list {
+    margin-top: 1;
+    max-height: 12;
+}

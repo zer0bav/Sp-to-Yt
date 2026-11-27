@@ -1,0 +1,28 @@
+# TIDAL web player (listen.tidal.com) selectors. TIDAL shows nothing without a login and
+# blocks headless browsers, so these could not be checked yet: experimental.
+
+[session]
+logged_out = 'button[data-test="login-button"], a[href*="login.tidal.com"], [data-test="sign-up-button"]'
+logged_in = '[data-test="user-profile"], [data-test="profile-image"], [data-test="sidebar-user"], button[data-test="user-menu"]'
+
+[tracks]
+row = '[data-test="tracklist-row"], [data-track-id]'
+title = '[data-test="table-cell-title"], [data-test="table-row-title"]'
+artist = '[data-test="track-row-artist"] a, [data-test="table-cell-artist"] a'
+album = '[data-test="table-cell-album"] a, [data-test="track-row-album"] a'
+duration = '[data-test="duration"], [data-test="table-cell-duration"]'
+
+[library]
+url = "https://listen.tidal.com/my-collection/playlists"
+items = 'a[href*="/playlist/"]'
+
+[create]
+open_texts = ["Create new playlist", "Create playlist", "New playlist"]
+buttons = 'button, [role="button"], a'
+title_input = '[role="dialog"] input, input[name="title"], [data-test="playlist-title-input"]'
+confirm_texts = ["Create", "Save"]
+
+[add]
+menu_button = '[data-test="track-row-context-menu"], button[aria-label*="more" i], button[data-test="contextmenu-button"]'
+menu_items = '[role="menu"] [role="menuitem"], [role="menu"] button, [data-test="contextmenu"] button, [data-test="contextmenu"] li'
+add_text = "Add to playlist"

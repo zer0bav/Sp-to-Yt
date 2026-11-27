@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TuneBridge</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='1' y='3' width='3' height='10' rx='1' fill='%23E0A458'/%3E%3Crect x='12' y='3' width='3' height='10' rx='1' fill='%23E0A458'/%3E%3Crect x='4' y='7' width='8' height='2' fill='%23E0A458'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app">
+  <aside class="rail">
+    <div class="brand">
+      <span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>tunebridge</span>
+    </div>
+    <ol class="steps" id="steps">
+      <li data-step="connect"><span class="num">1</span><span><b>Connect</b><small>Log in and pick a route</small></span></li>
+      <li data-step="playlists"><span class="num">2</span><span><b>Playlists</b><small>Choose what to move</small></span></li>
+      <li data-step="review"><span class="num">3</span><span><b>Review</b><small>Confirm uncertain matches</small></span></li>
+      <li data-step="transfer"><span class="num">4</span><span><b>Transfer</b><small>Songs are added</small></span></li>
+      <li data-step="report"><span class="num">5</span><span><b>Report</b><small>What moved, what did not</small></span></li>
+    </ol>
+    <div class="rail-foot">
+      <p class="muted small">Runs only on this computer. Your logins stay in local browser profiles; nothing is sent anywhere else.</p>
+      <button class="ghost small" id="theme-toggle" type="button">Switch theme</button>
+      <p class="muted tiny" id="version"></p>
+    </div>
+  </aside>
+
+  <main id="main">
+    <!-- 1. CONNECT -->
+    <section class="view" id="view-connect" hidden>
+      <header class="view-head">
+        <h1>Connect your platforms</h1>
+        <p class="lead">Log in once per platform. A normal browser window opens, you sign in yourself, then close it. TuneBridge reuses that session to read and build playlists.</p>
+      </header>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-head"><h2>Platforms</h2><button class="ghost small" id="refresh-platforms" type="button">Refresh</button></div>
+          <div class="platforms" id="platforms"></div>
+        </div>
+
+        <div class="stack">
+          <div class="card">
+            <div class="card-head"><h2>Route</h2></div>
+            <div class="route">
+              <label class="field"><span>Move from</span><select id="source"></select></label>
+              <button class="icon-btn" id="swap" type="button" title="Swap" aria-label="Swap source and target">&#8646;</button>
+              <label class="field"><span>Move to</span><select id="target"></select></label>
+            </div>
+            <p class="muted small" id="route-hint"></p>
+            <button class="primary block" id="to-playlists" type="button" disabled>Continue</button>
+          </div>
+
+          <div class="card">
+            <div class="card-head"><h2>Saved presets</h2></div>
+            <p class="muted small">A preset remembers which playlists go where. Run it again any time: only songs that are not on the target yet are added.</p>
+            <div id="presets" class="presets"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PLAYLISTS -->
+    <section class="view" id="view-playlists" hidden>
+      <header class="view-head">
+        <div class="crumbs"><button class="link" data-go="connect" type="button">Connect</button><span>/</span><span id="route-crumb"></span></div>
+        <h1>Choose playlists</h1>
+        <p class="lead" id="playlists-lead"></p>
+      </header>
+      <div class="grid-2 wide-left">
+        <div class="card flush">
+          <div class="toolbar">
+            <input type="search" id="pl-filter" placeholder="Filter playlists" autocomplete="off">
+            <button class="ghost small" id="pl-all" type="button">Select all</button>
+            <button class="ghost small" id="pl-none" type="button">Clear</button>
+            <span class="muted small push" id="pl-count"></span>
+          </div>
+          <div id="pl-loading" class="loading" hidden>
+            <div class="spinner" aria-hidden="true"></div>
+            <p id="pl-loading-msg">Opening the browser...</p>
+            <p class="muted small">Large libraries (with folders) can take a minute or two to read the first time.</p>
+          </div>
+          <div id="pl-error" class="callout error" hidden></div>
+          <table class="table" id="pl-table" hidden>
+            <thead><tr><th class="col-check"></th><th>Name</th><th class="num">Tracks</th><th>Owner</th><th>Type</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="card-head"><h2>Options</h2></div>
+            <label class="field"><span>Name prefix on the target</span><input type="text" id="opt-prefix" placeholder="e.g. from Spotify - "></label>
+            <label class="toggle"><input type="checkbox" id="opt-dry"><span>Dry run</span><small>Match only, write nothing.</small></label>
+            <label class="field"><span>Auto-add matches scoring at least</span>
+              <span class="range"><input type="range" id="opt-score" min="60" max="100" step="1" value="80"><output id="opt-score-out">80</output></span>
+            </label>
+            <label class="field"><span>Save as preset (optional)</span><input type="text" id="opt-preset" placeholder="e.g. weekly-sync"></label>
+            <button class="primary block" id="start" type="button" disabled>Find matches</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-5. RUN -->
+    <section class="view" id="view-run" hidden>
+      <header class="view-head">
+        <div class="crumbs"><span id="run-crumb"></span><span class="badge" id="run-state"></span></div>
+        <h1 id="run-title">Finding matches</h1>
+        <p class="lead" id="run-lead"></p>
+      </header>
+
+      <div id="report" class="report" hidden>
+        <div class="stats" id="stats"></div>
+        <div class="report-actions">
+          <a class="primary" id="download" href="#" download>Download CSV report</a>
+          <button class="ghost" id="restart" type="button">Start over</button>
+        </div>
+      </div>
+
+      <div class="grid-2 wide-left">
+        <div class="card flush">
+          <div class="toolbar tabs" id="tabs">
+            <button class="tab active" data-view="all" type="button">All <span></span></button>
+            <button class="tab" data-view="review" type="button">To check <span></span></button>
+            <button class="tab" data-view="not_found" type="button">Not found <span></span></button>
+            <button class="tab" data-view="already" type="button">Already moved <span></span></button>
+            <span class="push"></span>
+            <button class="ghost small" id="approve-all" type="button" hidden>Approve all to check</button>
+          </div>
+          <table class="table results" id="results">
+            <thead><tr><th class="col-status">Status</th><th class="num col-score">Score</th><th>Song</th><th>Match on target</th><th class="col-check" title="Include">Add</th></tr></thead>
+            <tbody></tbody>
+          </table>
+          <p class="empty muted" id="results-empty">Results appear here as songs are matched.</p>
+        </div>
+        <div class="stack">
+          <div class="card">
+            <div class="card-head"><h2>Progress</h2></div>
+            <div id="bars" class="bars"></div>
+          </div>
+          <div class="card">
+            <div class="card-head"><h2>Activity</h2></div>
+            <ol class="log" id="log"></ol>
+          </div>
+        </div>
+      </div>
+
+      <div class="actionbar" id="actionbar">
+        <div id="summary" class="summary"></div>
+        <div class="actions">
+          <button class="ghost" id="cancel" type="button">Cancel</button>
+          <button class="primary" id="apply" type="button" disabled>Transfer</button>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

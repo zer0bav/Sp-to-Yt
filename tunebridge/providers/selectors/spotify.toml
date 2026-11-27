@@ -1,0 +1,36 @@
+# Spotify web player (open.spotify.com) selectors.
+# If Spotify changes its markup, fix the selectors here; the Python code reads them at runtime.
+
+[session]
+logged_out = '[data-testid="login-button"]'
+logged_in = '[data-testid="user-widget-link"], [data-testid="user-widget-avatar"], button[data-testid="user-widget-link"]'
+
+[tracks]
+row = '[data-testid="tracklist-row"]'
+title_link = '[data-testid="internal-track-link"], a[href^="/track/"]'
+grid = '[role="grid"][aria-rowcount]'
+playlist_grid = '[data-testid="playlist-tracklist"]'
+empty_hint = '[data-testid="playlist-page"], [data-testid="playlist-tracklist"]'
+
+[library]
+title_id_prefix = "listrow-title-"
+subtitle_id_prefix = "listrow-subtitle-"
+fallback_links = '#Desktop_LeftSidebar_Id [role="row"] a[href^="/playlist/"]'
+folder_back = '#Desktop_LeftSidebar_Id button[aria-label="Go back"]'
+expand_buttons = ['button[aria-label="Expand Your Library"]', 'button[aria-label="Open Your Library"]', 'button[aria-label="Your Library"]']
+
+[create]
+buttons = ['button[aria-label="Create"]', 'button[aria-label="Create playlist or folder"]', '[data-testid="create-button"]']
+menu_items = '[role="menu"] [role="menuitem"], [role="menu"] button, [data-testid="context-menu"] button'
+playlist_item_text = "playlist"
+title_buttons = ['[data-testid="playlist-page"] h1', 'button[data-testid="entityTitle"]', '[data-testid="entityTitle"]', 'main h1']
+name_input = '[data-testid="playlist-edit-details-name-input"]'
+description_input = '[data-testid="playlist-edit-details-description-input"]'
+save_button = '[data-testid="playlist-edit-details-save-button"]'
+
+[add]
+more_button = '[data-testid="action-bar-row"] [data-testid="more-button"]'
+menu_items = '[role="menu"] [role="menuitem"], [role="menu"] button, [data-testid="context-menu"] button'
+add_to_playlist_text = "add to playlist"
+playlist_filter = '[role="menu"] input, [data-testid="context-menu"] input'
+duplicate_dialog_buttons = ["Don't add", "Skip duplicates", "Cancel"]
